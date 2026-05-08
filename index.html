@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aaranya Foundation | Advancing Solutions for a Resilient Tomorrow</title>
+    
+    <!-- Open Graph / Social Preview -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Aaranya Foundation | Advancing Solutions for a Resilient Tomorrow">
+    <meta property="og:description" content="Aaranya Foundation works at the intersection of ecological restoration, rural livelihoods, and soil health — empowering communities across India to build climate-resilient futures.">
+    <meta property="og:image" content="https://i.postimg.cc/2yD3bj4b/image-t6jwmh70b8.png">
+    <meta property="og:url" content="">
+    <meta property="og:site_name" content="Aaranya Foundation">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Aaranya Foundation | Advancing Solutions for a Resilient Tomorrow">
+    <meta name="twitter:description" content="Aaranya Foundation works at the intersection of ecological restoration, rural livelihoods, and soil health — empowering communities across India to build climate-resilient futures.">
+    <meta name="twitter:image" content="https://i.postimg.cc/2yD3bj4b/image-t6jwmh70b8.png">
+    <!-- General Meta -->
+    <meta name="description" content="Aaranya Foundation works at the intersection of ecological restoration, rural livelihoods, and soil health — empowering communities across India to build climate-resilient futures.">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://storage.googleapis.com/runable-templates/cli-uploads%2FTXfdh3tUubTQMEV6stvH42srjal8PrRu%2FbJRUxMwsqN0RDPel0UVqB%2Ffavicon-new.ico">
+    <link rel="icon" type="image/png" sizes="192x192" href="https://storage.googleapis.com/runable-templates/cli-uploads%2FTXfdh3tUubTQMEV6stvH42srjal8PrRu%2FV90oaotOKKnJ7SqMcpbU-%2Ffavicon-192-new.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://storage.googleapis.com/runable-templates/cli-uploads%2FTXfdh3tUubTQMEV6stvH42srjal8PrRu%2FedAK9vvF0WjWd_KaO2ccz%2Fapple-touch-icon-new.png">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            green: '#2e7d32',
+                            dark: '#0b2b1a',
+                        },
+                        text: {
+                            main: '#1a1a1a',
+                            muted: '#666666',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* ===== SCROLL ANIMATIONS ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(40px);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.92);
+            transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+        /* Stagger children */
+        .stagger > * { transition-delay: calc(var(--i, 0) * 120ms); }
+
+        /* ===== HERO LOAD ANIMATION ===== */
+        @keyframes heroFadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .hero-animate {
+            animation: heroFadeUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+        }
+        .hero-animate-delay-1 { animation-delay: 0.15s; }
+        .hero-animate-delay-2 { animation-delay: 0.3s; }
+        .hero-animate-delay-3 { animation-delay: 0.5s; }
+
+        /* ===== NAV SCROLL STATE ===== */
+        nav.scrolled {
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 1px 12px rgba(0,0,0,0.06);
+        }
+
+        /* ===== STORY CAROUSEL ===== */
+        .story-carousel {
+            display: flex;
+            gap: 1.5rem;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            padding-bottom: 1rem;
+        }
+        .story-carousel::-webkit-scrollbar { display: none; }
+        .story-card {
+            flex: 0 0 85%;
+            max-width: 600px;
+            scroll-snap-align: start;
+        }
+        @media (min-width: 768px) {
+            .story-card { flex: 0 0 45%; }
+        }
+        @media (min-width: 1024px) {
+            .story-card { flex: 0 0 35%; max-width: 480px; }
+        }
+
+        /* Dot indicators */
+        .dot { transition: all 0.3s ease; }
+        .dot.active { background-color: #2e7d32; transform: scale(1.3); }
+
+        /* ===== FORM SUCCESS ===== */
+        .form-success {
+            animation: heroFadeUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+    </style>
+</head>
+<body class="font-sans text-text-main bg-white antialiased leading-relaxed">
+
+    <!-- ===== NAVIGATION ===== -->
+    <nav id="mainNav" class="sticky top-0 z-50 bg-white border-b border-gray-200 px-6 md:px-12 lg:px-[8%] py-5 flex justify-between items-center transition-all duration-300">
+        <a href="#" class="flex items-center gap-3 decoration-transparent">
+            <img src="https://storage.googleapis.com/runable-templates/cli-uploads%2FTXfdh3tUubTQMEV6stvH42srjal8PrRu%2F49S8xiQs4L8evvy40Gw_f%2Flogo-icon-only.png" alt="Aaranya Foundation" class="h-10 md:h-12 w-auto">
+            <div class="flex flex-col leading-none">
+                <span class="text-brand-dark text-lg md:text-xl font-extrabold tracking-tight">AARANYA</span>
+                <span class="text-brand-green text-[0.55rem] md:text-[0.6rem] font-bold tracking-[0.3em] uppercase">Foundation</span>
+            </div>
+        </a>
+        <a href="#contact" class="bg-black text-white px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-gray-800 transition-colors duration-300 shadow-sm">
+            Connect With Us
+        </a>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <header class="px-6 md:px-12 lg:px-[8%] pt-20 pb-12 text-center flex flex-col items-center">
+        <h1 class="hero-animate text-4xl md:text-5xl lg:text-[4rem] font-extrabold tracking-tight leading-tight mb-6 max-w-5xl text-gray-900">
+            Advancing Solutions for a Resilient Tomorrow.
+        </h1>
+        <p class="hero-animate hero-animate-delay-1 text-lg md:text-xl text-text-muted max-w-2xl mb-10">
+            Empowering rural communities, restoring degraded landscapes, and enhancing soil health through sustainable, inclusive practices.
+        </p>
+        <a href="#focus" class="hero-animate hero-animate-delay-2 bg-black text-white px-9 py-4 rounded-full text-base font-semibold hover:bg-gray-800 transition-colors duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+            Our Initiatives
+        </a>
+        
+        <div class="hero-animate hero-animate-delay-3 mt-16 w-full max-w-6xl mx-auto rounded-[2rem] overflow-hidden shadow-2xl">
+            <img src="https://storage.googleapis.com/runable-templates/cli-uploads%2FTXfdh3tUubTQMEV6stvH42srjal8PrRu%2Fr6k3ALITsdN14-ZQonrmS%2Funsplash-indian-green-rice-paddy-field-aerial-landscape-wide_0.jpg" 
+                 class="w-full h-[400px] md:h-[550px] object-cover transition-transform duration-700 hover:scale-105" 
+                 alt="Lush green rice paddy terraces in rural India"
+                 onerror="this.src='https://placehold.co/1200x550/2e7d32/ffffff?text=Indian+Landscape'">
+        </div>
+    </header>
+
+    <!-- ===== CORE FOCUS ===== -->
+    <section id="focus" class="px-6 md:px-12 lg:px-[8%] py-24">
+        <span class="reveal font-bold uppercase text-xs tracking-[1.5px] text-brand-green mb-6 block">Core Focus</span>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 stagger">
+            <div class="group cursor-pointer reveal" style="--i:0">
+                <div class="overflow-hidden rounded-3xl mb-6 aspect-square shadow-sm group-hover:shadow-md transition-shadow">
+                    <img src="https://storage.googleapis.com/runable-templates/cli-uploads%2FTXfdh3tUubTQMEV6stvH42srjal8PrRu%2Fih6rMLMCfobBIxyNf3ljL%2Funsplash-indian-women-self-help-group-rural-farming-together_0.jpg" 
+                         alt="Indian women working together in green fields" 
+                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                         onerror="this.src='https://placehold.co/600x600/e0e0e0/666666?text=Livelihoods'">
+                </div>
+                <h3 class="text-xl md:text-2xl font-bold mb-3 text-gray-900 group-hover:text-brand-green transition-colors">Sustainable Livelihoods</h3>
+                <p class="text-text-muted text-base leading-relaxed">Creating reliable, sustainable income opportunities for rural families and tribal communities across India.</p>
+            </div>
+            <div class="group cursor-pointer reveal" style="--i:1">
+                <div class="overflow-hidden rounded-3xl mb-6 aspect-square shadow-sm group-hover:shadow-md transition-shadow">
+                    <img src="https://storage.googleapis.com/runable-templates/cli-uploads%2FTXfdh3tUubTQMEV6stvH42srjal8PrRu%2FkAGEyOWhpt9-EoYn4tudE%2Findia-soil-restoration-ecological-restoration-community-nursery-images_9.jpg" 
+                         alt="Native saplings growing in a community nursery" 
+                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                         onerror="this.src='https://placehold.co/600x600/e0e0e0/666666?text=Restoration'">
+                </div>
+                <h3 class="text-xl md:text-2xl font-bold mb-3 text-gray-900 group-hover:text-brand-green transition-colors">Ecological Restoration</h3>
+                <p class="text-text-muted text-base leading-relaxed">Reviving degraded lands with native species, rebuilding ecosystems from the soil up through community nurseries.</p>
+            </div>
+            <div class="group cursor-pointer reveal" style="--i:2">
+                <div class="overflow-hidden rounded-3xl mb-6 aspect-square shadow-sm group-hover:shadow-md transition-shadow">
+                    <img src="https://storage.googleapis.com/runable-templates/cli-uploads%2FTXfdh3tUubTQMEV6stvH42srjal8PrRu%2FxZBBJx-fHerT6Eto1FWoR%2Fsite-unsplash-com-indian-paddy-field-farmer-landscape_6.jpg" 
+                         alt="Indian farmer sowing seeds in paddy field" 
+                         class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                         onerror="this.src='https://placehold.co/600x600/e0e0e0/666666?text=Soil+Health'">
+                </div>
+                <h3 class="text-xl md:text-2xl font-bold mb-3 text-gray-900 group-hover:text-brand-green transition-colors">Soil Health & Farming</h3>
+                <p class="text-text-muted text-base leading-relaxed">Enhancing soil fertility through bio-fertilizers and climate-resilient farming practices for long-term food security.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SCIENTIFIC FRAMEWORK ===== -->
+    <section class="bg-gray-50 border-t border-gray-200 px-6 md:px-12 lg:px-[8%] py-24">
+        <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-16 lg:gap-24">
+            
+            <div class="lg:sticky lg:top-32 h-fit reveal-left">
+                <span class="font-bold uppercase text-xs tracking-[1.5px] text-brand-green mb-6 block">Our Approach</span>
+                <h2 class="text-4xl md:text-5xl lg:text-[3.5rem] font-bold tracking-tight leading-[1.1] mb-6 text-gray-900">
+                    Our <br>Scientific <br>
+                    <span class="italic font-light text-text-muted">Framework.</span>
+                </h2>
+                <p class="text-lg text-text-muted max-w-md">
+                    We combine traditional ecological wisdom with modern monitoring to ensure verifiable restoration.
+                </p>
+            </div>
+
+            <div class="flex flex-col">
+                <div class="group flex flex-col md:flex-row gap-6 md:gap-10 py-10 md:py-12 border-t border-b border-gray-200 transition-all duration-300 hover:pl-5 hover:border-black hover:border-b-2 cursor-default reveal-right" style="--i:0">
+                    <div class="text-brand-green font-extrabold opacity-30 text-2xl md:text-xl">01</div>
+                    <div>
+                        <h4 class="text-2xl font-bold mb-3 text-gray-900 group-hover:text-black">Bio-Fertilizer Production</h4>
+                        <p class="text-text-muted text-lg leading-relaxed">Natural inputs for healthier crops, restoring the microbial life of the soil without chemical additives.</p>
+                    </div>
+                </div>
+                
+                <div class="group flex flex-col md:flex-row gap-6 md:gap-10 py-10 md:py-12 border-b border-gray-200 transition-all duration-300 hover:pl-5 hover:border-black hover:border-b-2 cursor-default reveal-right" style="--i:1">
+                    <div class="text-brand-green font-extrabold opacity-30 text-2xl md:text-xl">02</div>
+                    <div>
+                        <h4 class="text-2xl font-bold mb-3 text-gray-900 group-hover:text-black">Ecological Monitoring</h4>
+                        <p class="text-text-muted text-lg leading-relaxed">Tracking ecosystem recovery through advanced satellite data and soil health metrics.</p>
+                    </div>
+                </div>
+                
+                <div class="group flex flex-col md:flex-row gap-6 md:gap-10 py-10 md:py-12 border-b border-gray-200 transition-all duration-300 hover:pl-5 hover:border-black hover:border-b-2 cursor-default reveal-right" style="--i:2">
+                    <div class="text-brand-green font-extrabold opacity-30 text-2xl md:text-xl">03</div>
+                    <div>
+                        <h4 class="text-2xl font-bold mb-3 text-gray-900 group-hover:text-black">Community Nurseries</h4>
+                        <p class="text-text-muted text-lg leading-relaxed">Growing native saplings in decentralized nurseries managed by the local community leaders.</p>
+                    </div>
+                </div>
+                
+                <div class="group flex flex-col md:flex-row gap-6 md:gap-10 py-10 md:py-12 border-b border-gray-200 transition-all duration-300 hover:pl-5 hover:border-black hover:border-b-2 cursor-default reveal-right" style="--i:3">
+                    <div class="text-brand-green font-extrabold opacity-30 text-2xl md:text-xl">04</div>
+                    <div>
+                        <h4 class="text-2xl font-bold mb-3 text-gray-900 group-hover:text-black">Climate-Resilient Farming</h4>
+                        <p class="text-text-muted text-lg leading-relaxed">Adapting farming environments to withstand extreme weather while enhancing biodiversity.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== IMPACT METRICS ===== -->
+    <section class="px-6 md:px-12 lg:px-[8%] py-24 bg-white">
+        <div class="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-20 items-center">
+            <div class="reveal-left">
+                <span class="font-bold uppercase text-xs tracking-[1.5px] text-brand-green mb-6 block">Impact Metrics</span>
+                <h2 class="text-4xl md:text-5xl lg:text-[3.5rem] font-extrabold tracking-tight leading-[1.1] text-gray-900">
+                    Measuring Our <br>Ecological & Social <br>
+                    <span class="italic font-light text-text-muted">Impact.</span>
+                </h2>
+            </div>
+            
+            <div id="metricsGrid" class="grid grid-cols-1 md:grid-cols-2 border-t border-l border-gray-200 rounded-tl-3xl overflow-hidden reveal-scale">
+                <div class="p-8 md:p-12 border-r border-b border-gray-200 hover:bg-gray-50 transition-colors">
+                    <span class="block text-4xl md:text-5xl font-extrabold text-brand-green tracking-tight mb-2" data-count="8000" data-suffix="+">0</span>
+                    <span class="text-xs uppercase tracking-[1.5px] text-text-muted font-bold">Acres Restored</span>
+                </div>
+                <div class="p-8 md:p-12 border-r md:border-r-0 border-b border-gray-200 hover:bg-gray-50 transition-colors">
+                    <span class="block text-4xl md:text-5xl font-extrabold text-brand-green tracking-tight mb-2" data-count="4000" data-suffix="+">0</span>
+                    <span class="text-xs uppercase tracking-[1.5px] text-text-muted font-bold">Farmers Supported</span>
+                </div>
+                <div class="p-8 md:p-12 border-r border-b border-gray-200 hover:bg-gray-50 transition-colors">
+                    <span class="block text-4xl md:text-5xl font-extrabold text-brand-green tracking-tight mb-2" data-count="500" data-suffix="+">0</span>
+                    <span class="text-xs uppercase tracking-[1.5px] text-text-muted font-bold">Women Empowered</span>
+                </div>
+                <div class="p-8 md:p-12 border-r md:border-r-0 border-b border-gray-200 hover:bg-gray-50 transition-colors">
+                    <span class="block text-4xl md:text-5xl font-extrabold text-brand-green tracking-tight mb-2" data-count="100" data-suffix="%">0</span>
+                    <span class="text-xs uppercase tracking-[1.5px] text-text-muted font-bold">Local Leadership</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== BUILT FOR COMMUNITIES — STORY CAROUSEL ===== -->
+    <section class="px-6 md:px-12 lg:px-[8%] py-24 bg-gray-50 overflow-hidden">
+        <div class="text-center reveal">
+            <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold tracking-tight text-gray-900 max-w-3xl mx-auto">
+                Built for communities, <span class="text-brand-green">by communities.</span>
+            </h2>
+            <p class="text-text-muted text-lg mt-4 max-w-xl mx-auto">Voices from the field — the people behind our impact.</p>
+        </div>
+        
+        <div class="mt-14 reveal" style="--i:1">
+            <div id="storyCarousel" class="story-carousel">
+                <!-- Story 1 -->
+                <div class="story-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://storage.googleapis.com/runable-templates/cli-uploads%2FTXfdh3tUubTQMEV6stvH42srjal8PrRu%2FxZBBJx-fHerT6Eto1FWoR%2Fsite-unsplash-com-indian-paddy-field-farmer-landscape_6.jpg" 
+                             alt="Indian farmer sowing bio-fertilizer in paddy field" 
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </div>
+                    <div class="p-7">
+                        <svg class="w-8 h-8 text-brand-green/30 mb-3" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                        <p class="text-gray-800 text-lg font-medium leading-relaxed mb-5">"With bio-fertilizers, my yield doubled in one season. The soil feels alive again under my feet."</p>
+                        <div class="flex items-center gap-3 pt-4 border-t border-gray-100">
+                            <div class="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center text-brand-green font-bold text-sm">RK</div>
+                            <div>
+                                <p class="font-bold text-sm text-gray-900">Raju Khedkar</p>
+                                <p class="text-xs text-text-muted">Farmer · Wardha, Maharashtra</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Story 2 -->
+                <div class="story-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://storage.googleapis.com/runable-templates/cli-uploads%2FTXfdh3tUubTQMEV6stvH42srjal8PrRu%2Ffd445jw5ByJeRky08Iyb9%2Findian-rural-farmers-agriculture-community-unsplash-free-images_6.jpg" 
+                             alt="Indian woman planting rice saplings in paddy field" 
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </div>
+                    <div class="p-7">
+                        <svg class="w-8 h-8 text-brand-green/30 mb-3" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                        <p class="text-gray-800 text-lg font-medium leading-relaxed mb-5">"The nursery gave me work close to home and my children. Now I earn and still watch them grow."</p>
+                        <div class="flex items-center gap-3 pt-4 border-t border-gray-100">
+                            <div class="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center text-brand-green font-bold text-sm">SP</div>
+                            <div>
+                                <p class="font-bold text-sm text-gray-900">Sunita Pawar</p>
+                                <p class="text-xs text-text-muted">Nursery Leader · Palghar, Maharashtra</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Story 3 -->
+                <div class="story-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://storage.googleapis.com/runable-templates/cli-uploads%2FTXfdh3tUubTQMEV6stvH42srjal8PrRu%2FGCnNKBRL5z88DhzStsSXA%2Funsplash-indian-women-self-help-group-rural-farming-together_3.jpg" 
+                             alt="Women's self-help group meeting in a field" 
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </div>
+                    <div class="p-7">
+                        <svg class="w-8 h-8 text-brand-green/30 mb-3" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                        <p class="text-gray-800 text-lg font-medium leading-relaxed mb-5">"Our women's group now manages 200 acres together. We decide what to grow, when to harvest, how to sell."</p>
+                        <div class="flex items-center gap-3 pt-4 border-t border-gray-100">
+                            <div class="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center text-brand-green font-bold text-sm">MT</div>
+                            <div>
+                                <p class="font-bold text-sm text-gray-900">Meena Thakur</p>
+                                <p class="text-xs text-text-muted">SHG Leader · Nashik, Maharashtra</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Story 4 -->
+                <div class="story-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group">
+                    <div class="h-64 overflow-hidden">
+                        <img src="https://storage.googleapis.com/runable-templates/cli-uploads%2FTXfdh3tUubTQMEV6stvH42srjal8PrRu%2FW5qYcFzPE271PWIE2ovZK%2Funsplash-indian-women-self-help-group-rural-farming-together_4.jpg" 
+                             alt="Tribal women from a rural community in Northeast India" 
+                             class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                    </div>
+                    <div class="p-7">
+                        <svg class="w-8 h-8 text-brand-green/30 mb-3" fill="currentColor" viewBox="0 0 24 24"><path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z"/></svg>
+                        <p class="text-gray-800 text-lg font-medium leading-relaxed mb-5">"We learned to read the soil, not just farm it. Now our village trains the next one."</p>
+                        <div class="flex items-center gap-3 pt-4 border-t border-gray-100">
+                            <div class="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center text-brand-green font-bold text-sm">AD</div>
+                            <div>
+                                <p class="font-bold text-sm text-gray-900">Anjali Devi</p>
+                                <p class="text-xs text-text-muted">Community Monitor · Raigad, Maharashtra</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dot indicators -->
+            <div class="flex justify-center gap-2.5 mt-8">
+                <button class="dot w-2.5 h-2.5 rounded-full bg-gray-300 active" data-index="0" aria-label="Story 1"></button>
+                <button class="dot w-2.5 h-2.5 rounded-full bg-gray-300" data-index="1" aria-label="Story 2"></button>
+                <button class="dot w-2.5 h-2.5 rounded-full bg-gray-300" data-index="2" aria-label="Story 3"></button>
+                <button class="dot w-2.5 h-2.5 rounded-full bg-gray-300" data-index="3" aria-label="Story 4"></button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER / CONTACT ===== -->
+    <footer id="contact" class="bg-brand-dark text-white px-6 md:px-12 lg:px-[8%] pt-24 pb-10">
+        <div class="grid grid-cols-1 lg:grid-cols-[2fr_1fr] gap-16 lg:gap-24 mb-20 border-b border-gray-700 pb-16">
+            
+            <div class="reveal">
+                <h2 class="text-4xl md:text-5xl lg:text-[3.5rem] font-bold leading-tight mb-10 max-w-2xl">
+                    Partner with Aaranya Foundation Today.
+                </h2>
+                
+                <!-- Contact form -->
+                <form id="contactForm" action="https://api.web3forms.com/submit" method="POST" class="max-w-lg space-y-4">
+                    <input type="hidden" name="access_key" value="YOUR_ACCESS_KEY_HERE">
+                    <input type="hidden" name="subject" value="New contact from Aaranya Foundation website">
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <input type="text" name="name" placeholder="Your name" required
+                               class="w-full bg-white/5 border border-gray-600 text-white px-5 py-3.5 rounded-2xl outline-none placeholder:text-gray-400 text-base focus:border-brand-green transition-colors duration-300">
+                        <input type="email" name="email" placeholder="Email address" required
+                               class="w-full bg-white/5 border border-gray-600 text-white px-5 py-3.5 rounded-2xl outline-none placeholder:text-gray-400 text-base focus:border-brand-green transition-colors duration-300">
+                    </div>
+                    <textarea name="message" placeholder="Tell us how you'd like to collaborate..." rows="4" required
+                              class="w-full bg-white/5 border border-gray-600 text-white px-5 py-3.5 rounded-2xl outline-none placeholder:text-gray-400 text-base focus:border-brand-green transition-colors duration-300 resize-none"></textarea>
+                    <button type="submit" id="submitBtn"
+                            class="bg-brand-green text-white px-8 py-4 rounded-full text-sm font-bold hover:bg-green-600 transition-colors shadow-lg w-full sm:w-auto">
+                        Send Message
+                    </button>
+                </form>
+                <!-- Success message -->
+                <div id="formSuccess" class="hidden mt-6 p-6 bg-brand-green/10 border border-brand-green/30 rounded-2xl form-success">
+                    <p class="text-brand-green font-bold text-lg">Thank you! 🌱</p>
+                    <p class="text-gray-300 text-sm mt-1">We'll get back to you within 2 business days.</p>
+                </div>
+                <!-- Error message -->
+                <div id="formError" class="hidden mt-6 p-6 bg-red-500/10 border border-red-500/30 rounded-2xl">
+                    <p class="text-red-400 font-bold">Something went wrong.</p>
+                    <p class="text-gray-300 text-sm mt-1">Please try again or email us directly.</p>
+                </div>
+            </div>
+            
+            <div class="text-sm text-gray-300 leading-loose flex flex-col justify-center reveal-right">
+                <div class="flex items-center gap-3 mb-8">
+                    <img src="https://storage.googleapis.com/runable-templates/cli-uploads%2FTXfdh3tUubTQMEV6stvH42srjal8PrRu%2FXnfryWuIpm5P0Hr-HPOm0%2Flogo-icon-white.png" alt="Aaranya Foundation" class="h-12 w-auto">
+                    <div class="flex flex-col leading-none">
+                        <span class="text-white text-xl font-extrabold tracking-tight">AARANYA</span>
+                        <span class="text-brand-green text-[0.55rem] font-bold tracking-[0.3em] uppercase">Foundation</span>
+                    </div>
+                </div>
+                
+                <div class="w-full max-w-[240px] text-justify text-gray-400 text-sm leading-relaxed tracking-wide">
+                    Naman Chambers, 8th Floor, C-32, Bandra Kurla Complex, Bandra East, Opp Dena Bank, Mumbai 400051, India.
+                </div>
+                
+                <div class="mt-8 flex gap-4">
+                    <a href="#" class="group flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
+                        <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="font-semibold tracking-wide">Instagram</span>
+                    </a>
+                </div>
+            </div>
+            
+        </div>
+        
+        <p class="text-xs text-gray-500 text-center font-medium">
+            &copy; 2026 Aaranya Foundation. All rights reserved.
+        </p>
+    </footer>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+    (function() {
+        // ===== NAV SCROLL EFFECT =====
+        const nav = document.getElementById('mainNav');
+        const onScroll = () => {
+            nav.classList.toggle('scrolled', window.scrollY > 20);
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+
+        // ===== INTERSECTION OBSERVER — SCROLL REVEAL =====
+        const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+        revealEls.forEach(el => revealObserver.observe(el));
+
+        // ===== ANIMATED COUNTERS =====
+        let countersDone = false;
+        const metricsGrid = document.getElementById('metricsGrid');
+        const counterObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !countersDone) {
+                    countersDone = true;
+                    animateCounters();
+                    counterObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.3 });
+        if (metricsGrid) counterObserver.observe(metricsGrid);
+
+        function animateCounters() {
+            const counters = document.querySelectorAll('[data-count]');
+            counters.forEach(el => {
+                const target = parseInt(el.dataset.count);
+                const suffix = el.dataset.suffix || '';
+                const duration = 2000;
+                const start = performance.now();
+
+                function step(now) {
+                    const elapsed = now - start;
+                    const progress = Math.min(elapsed / duration, 1);
+                    // Ease-out cubic
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const current = Math.round(eased * target);
+                    el.textContent = current.toLocaleString() + suffix;
+                    if (progress < 1) requestAnimationFrame(step);
+                }
+                requestAnimationFrame(step);
+            });
+        }
+
+        // ===== STORY CAROUSEL DOTS =====
+        const carousel = document.getElementById('storyCarousel');
+        const dots = document.querySelectorAll('.dot');
+        if (carousel && dots.length) {
+            // Click dots to scroll
+            dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                    const idx = parseInt(dot.dataset.index);
+                    const cards = carousel.querySelectorAll('.story-card');
+                    if (cards[idx]) {
+                        cards[idx].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+                    }
+                });
+            });
+
+            // Update dots on scroll
+            carousel.addEventListener('scroll', () => {
+                const scrollLeft = carousel.scrollLeft;
+                const cardWidth = carousel.querySelector('.story-card').offsetWidth + 24; // gap
+                const activeIdx = Math.round(scrollLeft / cardWidth);
+                dots.forEach((d, i) => d.classList.toggle('active', i === activeIdx));
+            }, { passive: true });
+        }
+
+        // ===== CONTACT FORM =====
+        const form = document.getElementById('contactForm');
+        const successMsg = document.getElementById('formSuccess');
+        const errorMsg = document.getElementById('formError');
+        const submitBtn = document.getElementById('submitBtn');
+
+        if (form) {
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Sending...';
+                successMsg.classList.add('hidden');
+                errorMsg.classList.add('hidden');
+
+                try {
+                    const data = new FormData(form);
+                    const res = await fetch(form.action, {
+                        method: 'POST',
+                        body: data
+                    });
+                    if (res.ok) {
+                        form.reset();
+                        successMsg.classList.remove('hidden');
+                        form.classList.add('hidden');
+                    } else {
+                        throw new Error('Form submission failed');
+                    }
+                } catch (err) {
+                    errorMsg.classList.remove('hidden');
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Send Message';
+                }
+            });
+        }
+    })();
+    </script>
+
+</body>
+</html>
